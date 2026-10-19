@@ -1,0 +1,62 @@
+title: SI / PI / EMI 手册
+description: 面向硬件工程师的信号完整性、电源完整性与电磁干扰实用手册
+lang: zh-CN
+url: "https://sipiemi.github.io"
+baseurl: ""
+
+# 主题：Just the Docs，固定版本，避免主题升级导致页面意外变化
+remote_theme: just-the-docs/just-the-docs@v0.12.0
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-include-cache
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+permalink: pretty
+
+search_enabled: true
+search:
+  heading_level: 3
+  previews: 2
+  preview_words_before: 3
+  preview_words_after: 3
+
+heading_anchors: true
+back_to_top: true
+back_to_top_text: "回到顶部"
+
+aux_links:
+  "GitHub":
+    - "https://github.com/SIPIEMI/sipiemi.github.io"
+aux_links_new_tab: true
+
+gh_edit_link: true
+gh_edit_link_text: "在 GitHub 上编辑此页"
+gh_edit_repository: "https://github.com/SIPIEMI/sipiemi.github.io"
+gh_edit_branch: "main"
+gh_edit_view_mode: "edit"
+
+callouts_level: quiet
+callouts:
+  note:
+    title: 说明
+    color: blue
+  tip:
+    title: 经验
+    color: green
+  warning:
+    title: 注意
+    color: red
+  formula:
+    title: 公式
+    color: purple
+  example:
+    title: 算例
+    color: yellow
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
