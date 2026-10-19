@@ -58,3 +58,69 @@
   document.addEventListener('input', trigger);
   document.addEventListener('compositionend', trigger);
 })();
+
+// 宽屏右侧“本页目录”：复制 kramdown 生成的页内目录，放到正文右侧，并高亮当前章节。
+// 是否显示由 CSS 按屏幕宽度决定（_sass/custom/custom.scss）。
+(function () {
+  // 在 <head> 里同步加上标记，宽屏时正文开头的目录从首次渲染起就不显示，避免页面跳动
+  document.documentElement.classList.add('has-page-toc');
+
+  var build = function () {
+    var source = document.getElementById('markdown-toc');
+    var main = document.querySelector('.main');
+    if (!source || !main) return;
+
+    var list = source.cloneNode(true);
+    list.removeAttribute('id');
+    list.querySelectorAll('[id]').forEach(function (el) { el.removeAttribute('id'); });
+
+    var aside = document.createElement('nav');
+    aside.className = 'page-toc';
+    aside.setAttribute('aria-label', '本页目录');
+    var inner = document.createElement('div');
+    inner.className = 'page-toc-inner';
+    var title = document.createElement('p');
+    title.className = 'page-toc-title text-delta';
+    title.textContent = '本页目录';
+    inner.appendChild(title);
+    inner.appendChild(list);
+    aside.appendChild(inner);
+    main.appendChild(aside);
+
+    var links = Array.prototype.slice.call(list.querySelectorAll('a'));
+    var headings = links.map(function (a) {
+      return document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));
+    });
+    var current = null;
+    var update = function () {
+      var active = null;
+      for (var i = 0; i < headings.length; i++) {
+        if (headings[i] && headings[i].getBoundingClientRect().top <= 96) active = links[i];
+      }
+      if (active === current) return;
+      if (current) current.classList.remove('active');
+      if (active) {
+        active.classList.add('active');
+        // 只滚动目录面板本身，让当前项保持可见
+        var r = active.getBoundingClientRect();
+        var box = inner.getBoundingClientRect();
+        if (r.top < box.top || r.bottom > box.bottom) {
+          inner.scrollTop += r.top - box.top - box.height / 3;
+        }
+      }
+      current = active;
+    };
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () { ticking = false; update(); });
+    }, { passive: true });
+    update();
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+})();

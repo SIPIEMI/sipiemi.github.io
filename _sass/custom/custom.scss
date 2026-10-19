@@ -1,0 +1,78 @@
+// Wide screens: three columns -- nav | content | in-page TOC.
+// Applies only to pages with a kramdown TOC (#markdown-toc); the right-hand TOC is built by
+// _includes/js/custom.js. Browsers without :has() ignore these rules and keep the theme's
+// two-column layout.
+// Keep this file ASCII-only: the GitHub Pages Sass compiler rejects non-ASCII characters.
+$three-col-width: $nav-width + $content-width + $toc-width;
+
+.page-toc {
+  display: none;
+}
+
+@include mq(xl) {
+  body:has(#markdown-toc) {
+    .side-bar {
+      width: calc((100% - #{$three-col-width}) / 2 + #{$nav-width});
+    }
+
+    .side-bar + .main {
+      margin-left: calc((100% - #{$three-col-width}) / 2 + #{$nav-width});
+    }
+
+    .page-toc {
+      position: absolute;
+      top: $header-height;
+      bottom: 0;
+      left: 100%;
+      display: block;
+      width: $toc-width;
+    }
+  }
+
+  // With the right-hand TOC in place, hide the copy at the top of the content
+  html.has-page-toc body:has(#markdown-toc) #main-content details:has(> #markdown-toc) {
+    display: none;
+  }
+}
+
+.page-toc-inner {
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  padding: $gutter-spacing $sp-4 $sp-6;
+  overflow-y: auto;
+  border-left: $border $border-color;
+}
+
+.page-toc-title {
+  margin-top: 0;
+}
+
+.page-toc ul {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  ul {
+    padding-left: $sp-3;
+  }
+
+  a {
+    display: block;
+    padding: $sp-1 0 $sp-1 $sp-2;
+    color: $body-text-color;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+
+    &:hover {
+      color: $link-color;
+    }
+
+    &.active {
+      color: $link-color;
+      border-left-color: $link-color;
+    }
+  }
+}

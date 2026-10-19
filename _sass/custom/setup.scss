@@ -1,0 +1,16 @@
+// Desktop layout width: widen the content column from the theme default 50rem to 60rem.
+// When the viewport fits nav + content + right TOC, pages with an in-page TOC switch to
+// three columns (see custom.scss).
+// The theme defines its variables before importing this file, so every variable derived
+// from $content-width is recomputed here as well.
+// Keep this file ASCII-only: the GitHub Pages Sass compiler rejects non-ASCII characters.
+$content-width: 60rem;
+$toc-width: 16rem;
+$search-results-width: $content-width - $nav-width;
+$media-queries: (
+  xs: 20rem,
+  sm: 31.25rem,
+  md: 50rem,
+  lg: $nav-width + $content-width,
+  xl: $nav-width + $content-width + $toc-width,
+);

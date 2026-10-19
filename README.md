@@ -15,7 +15,9 @@
 | `emi.md` | 电磁干扰 |
 | `404.md` | 页面不存在时显示的页面 |
 | `_config.yml` | 网站标题、主题版本、搜索、提示框样式等设置 |
-| `_includes/js/custom.js` | 让站内搜索支持中文 |
+| `_includes/js/custom.js` | 让站内搜索支持中文；宽屏时生成右侧“本页目录” |
+| `_sass/custom/setup.scss` | 版面宽度：正文最宽 60rem，宽屏三栏的断点 |
+| `_sass/custom/custom.scss` | 宽屏三栏版面和右侧目录的样式（只能写 ASCII 字符，中文注释会导致 GitHub Pages 构建失败） |
 
 ## 修改页面
 
