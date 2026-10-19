@@ -57,6 +57,7 @@ callouts:
 
 exclude:
   - README.md
+  - FIGURE-STYLE.md
   - Gemfile
   - Gemfile.lock
   - vendor/
