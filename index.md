@@ -51,4 +51,5 @@ permalink: /
 
 ## 更新记录
 
+- **2026-10-19**：新增 SI 子页面 [Dk/Df 多频点提取](/si/dk-df-extraction/)：用 Delta-L S 参数测量和切片量测获取多频点 Dk、Df。
 - **2026-10-19**：网站重建，新增 SI、PI、EMI 三个入门页面。
